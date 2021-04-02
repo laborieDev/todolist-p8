@@ -8,10 +8,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * @Route("/admin/users", name="user_")
+ */
 class UserController extends Controller
 {
     /**
-     * @Route("/users", name="user_list")
+     * @Route("/", name="list")
      */
     public function listAction()
     {
@@ -19,7 +22,8 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/users/create", name="user_create")
+     * @Route("/create", name="create")
+     * @param Request $request
      */
     public function createAction(Request $request)
     {
@@ -45,7 +49,9 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/users/{id}/edit", name="user_edit")
+     * @Route("/{id}/edit", name="edit")
+     * @param User $user
+     * @param Request $request
      */
     public function editAction(User $user, Request $request)
     {

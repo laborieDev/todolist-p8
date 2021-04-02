@@ -4,22 +4,28 @@ namespace App\Controller;
 
 use App\Entity\Task;
 use App\Form\TaskType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class TaskController extends Controller
 {
     /**
-     * @Route("/tasks", name="task_list")
+     * @Route("/tasks/list/{isDone}", methods={"GET"}, name="task_list")
+     * @param Boolean $isDone
      */
-    public function listAction()
+    public function listAction($isDone = 0)
     {
-        return $this->render('task/list.html.twig', ['tasks' => $this->getDoctrine()->getRepository(Task::class)->findAll()]);
+        $tasks = $this->getDoctrine()->getRepository(Task::class)->findBy([
+            "isDone" => (bool) $isDone
+        ]);
+
+        return $this->render('task/list.html.twig', ['tasks' => $tasks]);
     }
 
     /**
      * @Route("/tasks/create", name="task_create")
+     * @param request $request
      */
     public function createAction(Request $request)
     {
@@ -31,6 +37,7 @@ class TaskController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
+            $task->setUser($this->getUser());
             $em->persist($task);
             $em->flush();
 
@@ -44,14 +51,19 @@ class TaskController extends Controller
 
     /**
      * @Route("/tasks/{id}/edit", name="task_edit")
+     * @param Task $task
+     * @param Request $request
      */
     public function editAction(Task $task, Request $request)
     {
+        if($task->getUser() != $this->getUser())
+            $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'La tâche a bien été modifiée.');
@@ -67,6 +79,7 @@ class TaskController extends Controller
 
     /**
      * @Route("/tasks/{id}/toggle", name="task_toggle")
+     * @param Task $task
      */
     public function toggleTaskAction(Task $task)
     {
@@ -80,9 +93,13 @@ class TaskController extends Controller
 
     /**
      * @Route("/tasks/{id}/delete", name="task_delete")
+     * @param Task $task
      */
     public function deleteTaskAction(Task $task)
     {
+        if($task->getUser() != $this->getUser())
+            $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $em = $this->getDoctrine()->getManager();
         $em->remove($task);
         $em->flush();
