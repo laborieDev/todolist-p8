@@ -9,6 +9,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+/** php bin/console todolist:user:check [USERNAME] [PASSWORD] */
 class CheckUsersCommand extends Command
 {
     // the name of the command (the part after "bin/console")
@@ -52,10 +53,8 @@ class CheckUsersCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln([
-            '',
             'Get all users',
             '============',
-            '',
         ]);
 
 
@@ -64,23 +63,19 @@ class CheckUsersCommand extends Command
         $countUsers = count($allUsers);
 
         $output->writeln([
-            '',
             'There are '.$countUsers.' users',
             '============',
-            '',
         ]);
 
         foreach($allUsers as $user){
             if(in_array("ROLE_ADMIN", $user->getRoles())){
                 $output->writeln([
-                    '',
                     'Admin exists !',
                     'Username : '.$user->getUsername(),
                     '============',
-                    '',
                 ]);
 
-                return true;
+                return 1;
             }
         }
 
@@ -101,11 +96,11 @@ class CheckUsersCommand extends Command
         $this->entityManager->flush();
 
         $output->writeln([
-            '',
             'Admin is created !',
             'Username : '.$adminUser->getUsername(),
             '============',
-            '',
         ]);
+
+        return 0;
     }
 }

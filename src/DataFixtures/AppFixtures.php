@@ -30,13 +30,21 @@ class AppFixtures extends Fixture
         $admin->setPassword($passwordEncoded);
         $entityManager->persist($admin);
 
-        //CREATE ANOTHER USER
+        //CREATE ANOTHERS USERS
         $user = new User();
         $user->setUsername('User One');
         $user->setEmail('user@todolist.fr');
         $passwordEncoded = $this->encoder->encodePassword($user, 'user');
         $user->setPassword($passwordEncoded);
         $entityManager->persist($user);
+
+            //Second not admin user for Tests
+        $userTwo = new User();
+        $userTwo->setUsername('User Two');
+        $userTwo->setEmail('user-two@todolist.fr');
+        $passwordEncoded = $this->encoder->encodePassword($userTwo, 'user');
+        $userTwo->setPassword($passwordEncoded);
+        $entityManager->persist($userTwo);
 
         //CREATE TASKS
         for ($i = 0; $i < 15; $i++) {
