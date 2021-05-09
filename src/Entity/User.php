@@ -20,6 +20,11 @@ class User implements UserInterface
     const USER_ADMIN_ROLE = "ROLE_ADMIN";
     const USER_USER_ROLE = "ROLE_USER";
 
+    //Anonymous User
+    const ANONYMOUS_USERNAME = "anonymousUsername";
+    const ANONYMOUS_EMAIL = "anonymousemail@todolist.fr";
+    const ANONYMOUS_PASSWORD = "anonymousPassword";
+
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -28,7 +33,7 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=25, unique=true)
+     * @ORM\Column(type="string", length=100, unique=true)
      * @Assert\NotBlank(message="Vous devez saisir un nom d'utilisateur.")
      */
     private $username;

@@ -9,6 +9,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+/** php bin/console todolist:task:check-anonymous */
 class AnonymousTaskCommand extends Command
 {
     // the name of the command (the part after "bin/console")
@@ -55,9 +56,9 @@ class AnonymousTaskCommand extends Command
             '',
         ]);
 
-        $anonymousUsername = "anonymousUsername";
-        $anonymousEmail = "anonymousemail@todolist.fr";
-        $anonymousPassword = "anonymousPassword";
+        $anonymousUsername = User::ANONYMOUS_USERNAME;
+        $anonymousEmail = User::ANONYMOUS_EMAIL;
+        $anonymousPassword = User::ANONYMOUS_PASSWORD;
 
         $anonymousUser = $this->entityManager->getRepository(User::class)->findBy([
             "username" => $anonymousUsername
@@ -99,5 +100,7 @@ class AnonymousTaskCommand extends Command
             '============',
             '',
         ]);
+
+        return 1;
     }
 }
