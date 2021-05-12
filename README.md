@@ -5,7 +5,7 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/7620a59c877c43d9a1dd692f52e56f53)](https://www.codacy.com/gh/laborieDev/todolist-p8/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=laborieDev/todolist-p8&amp;utm_campaign=Badge_Grade)
 
 ## Environnement utilisé durant le développement
-* Symfony 4.2
+* Symfony 4.4
 * Composer 2.0.13
 * Mamp 5.5
   * Apache 2.2.34
