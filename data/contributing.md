@@ -7,7 +7,7 @@
 Lien vers le Repository : https://github.com/laborieDev/todolist-p8
 
 ## Environnement utilisé durant le développement
-* Symfony 4.2
+* Symfony 4.4
 * Composer 2.0.13
 * Mamp 5.5
   * Apache 2.2.34
@@ -29,7 +29,7 @@ Pour toutes nouvelles contributions ou features, merci de respecter les règles 
 * Seulement après la validation de votre pull request de *@laborieDev* (créateur du projet), vous pourrez merger votre branche dans **main**.
 
 ### 2 - Votre code
-* Respectez au minimum des [PSR-1](<https://www.php-fig.org/psr/psr-1/>), [PSR-2](<https://www.php-fig.org/psr/psr-2/>) et [PSR-12](<https://www.php-fig.org/psr/psr-12/>)
+* Respectez au minimum des [PSR-1](<https://www.php-fig.org/psr/psr-1/>) et [PSR-12](<https://www.php-fig.org/psr/psr-12/>)
 * Respectez des [Conventions de Symfony](<https://symfony.com/doc/4.4/contributing/code/conventions.html>)
 * Respectez des [Standards de code de Symfony](<https://symfony.com/doc/current/contributing/code/standards.html>)
 
